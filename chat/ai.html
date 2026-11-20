@@ -283,6 +283,45 @@
     <script src="js/ai.js?v=8af1775b87"></script>
     <script src="js/ambient.js?v=8af1775b87" defer></script>
     <script src="js/sw-update.js"></script>
+
+<!-- Echora 迁移提示（旧版存档，冻结） -->
+<style>
+  .echora-note {
+    position: fixed; left: .9rem; bottom: .9rem; z-index: 9999;
+    display: flex; align-items: center; gap: .55rem;
+    padding: .4rem .45rem .4rem .85rem; border-radius: 999px;
+    background: rgba(22, 20, 28, .88); color: #fff;
+    font: 500 .72rem/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", "Microsoft YaHei", sans-serif;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, .28);
+    -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px);
+  }
+  .echora-note a { color: #cdb7f5; text-decoration: none; white-space: nowrap; }
+  .echora-note a:hover { text-decoration: underline; }
+  .echora-note button {
+    all: unset; cursor: pointer; width: 1.5rem; height: 1.5rem; border-radius: 999px;
+    display: grid; place-items: center; opacity: .7; font-size: .9rem; line-height: 1;
+  }
+  .echora-note button:hover { opacity: 1; background: rgba(255, 255, 255, .1); }
+  @media (max-width: 420px) { .echora-note { left: .6rem; bottom: .6rem; font-size: .68rem; } }
+</style>
+<div class="echora-note" id="echora-note" role="note">
+  <span>chat 旧版存档 · 不再更新</span>
+  <a href="https://yenchiu.com/Echora/">去 Echora →</a>
+  <button type="button" id="echora-note-close" aria-label="关闭提示">×</button>
+</div>
+<script>
+  (function () {
+    var note = document.getElementById('echora-note');
+    if (!note) return;
+    try {
+      if (sessionStorage.getItem('echora-note-closed') === '1') note.remove();
+    } catch (e) {}
+    document.getElementById('echora-note-close').addEventListener('click', function () {
+      note.remove();
+      try { sessionStorage.setItem('echora-note-closed', '1'); } catch (e) {}
+    });
+  })();
+</script>
 </body>
 
 </html>
